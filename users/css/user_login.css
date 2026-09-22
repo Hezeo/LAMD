@@ -1,0 +1,1009 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+/* =====================
+   GLOBAL RESET
+===================== */
+*,
+*::before,
+*::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+}
+
+input {
+      caret-color: red;
+}
+
+/* =====================
+   PAGE BACKGROUND
+===================== */
+body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+}
+
+body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("../../images/login_bg.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform-origin: center 15%;
+      animation: droneFly 20s ease-in-out infinite alternate;
+      transition: filter 2s ease-in-out;
+      z-index: -1;
+}
+
+@keyframes droneFly {
+      0% {
+            transform: scale(1);
+      }
+
+      100% {
+            transform: scale(1.05);
+      }
+}
+
+/* =====================
+   MAIN CENTERED CONTAINER
+===================== */
+.main-container {
+      /* Centers everything vertically and horizontally */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+}
+
+/* =====================
+   BRANDING STYLES (LEFT GROUP)
+===================== */
+.left-panel {
+      /* This div now acts as the anchor for the text group */
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin-right: 0;
+      /* Remove old gap */
+}
+
+/* Greeting: Aligned with "L" */
+/* Greeting Container */
+.background-greeting {
+      position: relative;
+      text-align: left;
+      font-size: 2.2rem;
+      color: #fff;
+
+      /* IMPORTANT: Default font for the "Good Morning" part */
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 15px;
+      padding-left: 0;
+      z-index: 2;
+}
+
+/* Cursive style for the "Welcome to" part */
+.cursive-welcome {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.4em;
+      /* Slightly larger */
+      display: inline-block;
+      font-weight: normal;
+}
+
+.brand-title {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      font-family: 'Montserrat Alternates', sans-serif;
+      position: relative;
+      z-index: 2;
+}
+
+/* "Land Asset" - SUPER LARGE, WIDE SPACING */
+.brand-title .line-1 {
+      font-size: 7rem;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 3px #fff;
+      margin-bottom: -10px;
+      /* -webkit-text-stroke: 3px #f8fafc; */
+      text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
+      line-height: 1.0;
+      letter-spacing: 7px;
+      /* WIDE SPACING */
+      transition: all 0.3s ease;
+}
+
+/* "Management Department" - Smaller */
+.brand-title .line-2 {
+      font-size: 2.7rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 0px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      letter-spacing: 4px;
+}
+
+.left-panel .line-3 {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-top: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      letter-spacing: 2px;
+}
+
+/* =====================
+   RIGHT PANEL (LOGIN FORM)
+===================== */
+.right-panel {
+      /* Margins push the form next to the title */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 60px;
+      /* Distance between Title and Form */
+      position: relative;
+      z-index: 2;
+}
+
+
+
+
+
+
+
+
+/* =====================
+   LOGIN FORM (GLASS)
+===================== */
+form {
+      position: relative;
+      width: 100%;
+      width: 320px;
+      height: auto;
+      border-radius: 24px;
+      /* Slightly rounder container */
+      padding: 35px 40px;
+      box-sizing: border-box;
+
+      /* SMOOTH GLASS: Gradient background instead of flat color */
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.15));
+      backdrop-filter: blur(15px);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(15px);
+
+      /* SMOOTH EDGES: No hard borders, using shadows for depth */
+      border: none;
+      box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.15),
+            /* Soft outer shadow */
+            inset 0 1px 1px rgba(255, 255, 255, 0.6);
+      /* Soft inner highlight at top */
+
+      transition: all 0.4s ease;
+}
+
+/* Subtle hover lift without 'jumping' */
+form:hover {
+      transform: translateY(0px);
+      box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.login-label {
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      text-align: left;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      /* Professional touch */
+}
+
+input {
+      margin-bottom: 15px;
+      background: rgba(255, 255, 255, 0.25);
+      background: transparent;
+      padding: 12px;
+      padding-left: 20px;
+      height: 48px;
+      font-size: 14px;
+      width: 100%;
+      border-radius: 10px;
+      /* SMOOTH PILL SHAPE */
+      border: none;
+      /* Removed hard border */
+
+      /* Soft inset look */
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05),
+            inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+
+      color: #2c3e50;
+      backdrop-filter: blur(5px);
+      outline: none;
+
+      /* Smooth transition for all effects */
+      transition: all 0.4s ease;
+}
+
+input::placeholder {
+      color: rgba(44, 62, 80, 0.6);
+      transition: color 0.3s ease;
+}
+
+/* Focus state: White glow, no hard borders */
+input:focus {
+      background: rgba(255, 255, 255, 0.45);
+      box-shadow:
+            0 0 0 4px rgba(255, 255, 255, 0.15),
+            /* Outer ring glow */
+            inset 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+input:focus::placeholder {
+      color: rgba(44, 62, 80, 0.4);
+}
+
+button {
+      color: white;
+      margin-top: 15px;
+      /* Gradient Button for depth */
+      background: #2E7D32;
+      background: linear-gradient(to right, #2E7D32, #4CAF50);
+      height: 46px;
+      width: 100%;
+      border-radius: 30px;
+      /* Smooth pill shape */
+      border: none;
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      font-size: 14px;
+
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 20px rgba(240, 54, 54, 0.25);
+      transition: all 0.4s ease;
+}
+
+button:hover {
+      background: linear-gradient(to right, #388E3C, #66BB6A);
+      box-shadow: 0 10px 25px rgba(46, 125, 50, 0.5);
+}
+
+button:active {
+      transform: scale(0.98);
+}
+
+.error-message {
+      position: relative;
+      color: #b91c1c;
+      color: #ffa600;
+      /* background: rgba(255,255,255,0.95); */
+      text-align: center;
+      font-size: 13px;
+      font-weight: 300;
+      animation: fadeIn 0.4s ease-in-out;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =====================
+   MOBILE RESPONSIVE
+===================== */
+@media (max-width: 1024px) {
+
+      /* Adjusting Title Size for Tablets/Small Laptops */
+      .brand-title .line-1 {
+            font-size: 5rem;
+            letter-spacing: 5px;
+      }
+
+      .brand-title .line-2 {
+            font-size: 2rem;
+      }
+
+      /* Reduce gap between Title and Form */
+      .right-panel {
+            margin-left: 40px;
+      }
+}
+
+@media (max-width: 768px) {
+      .main-container {
+            flex-direction: column;
+            /* Stack vertically */
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+            /* Allow scrolling if content is too tall */
+      }
+
+      .left-panel {
+            align-items: center;
+            /* Center the text group */
+            margin-bottom: 30px;
+            /* Space between text and form */
+            margin-right: 0;
+      }
+
+      .background-greeting {
+            text-align: center;
+            /* Center greeting on mobile */
+            align-self: center;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+      }
+
+      .brand-title {
+            text-align: center;
+            align-items: center;
+      }
+
+      /* "Land Asset" Mobile Size */
+      .brand-title .line-1 {
+            font-size: 2.8rem;
+            -webkit-text-stroke: 1px #fff;
+            letter-spacing: 3px;
+            /* Tighter spacing for mobile */
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+            margin-bottom: -5px;
+      }
+
+      /* "Management Department" Mobile Size */
+      .brand-title .line-2 {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+      }
+
+      /* "Line 3" adjustments */
+      .left-panel .line-3 {
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 20px;
+      }
+
+      .right-panel {
+            margin-left: 0;
+            /* Remove side margin */
+            width: 100%;
+            justify-content: center;
+            padding: 0 10px;
+            /* Add slight padding to sides */
+      }
+
+      /* Form Adjustments for Mobile */
+      form {
+            width: 100%;
+            max-width: 340px;
+            /* Cap width on mobile */
+            padding: 25px 30px;
+            /* Adjust padding */
+      }
+
+      /* Prevent iOS Zoom on inputs */
+      input {
+            font-size: 16px;
+      }
+
+      button {
+            margin-top: 20px;
+      }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =====================
+   PINEAPPLE LOADER STYLES
+===================== */
+:root {
+      --bg: transparent;
+      --pineapple-body: #e0a030;
+      --pineapple-dark: #c48220;
+      --pineapple-shadow: #8b5a10;
+      --peel-line: #8b5a10;
+      --leaf-dark: #1a5c34;
+      --leaf-mid: #268f4a;
+      --leaf-light: #3db36d;
+      --cup-cream: #f5ede3;
+      --cup-shadow: #d9cdc0;
+      --tea: #b55c3a;
+      --tea-surface: #c97a5a;
+      --steam: rgba(255, 252, 245, 0.6);
+}
+
+/* LOADER OVERLAY - CRITICAL PART */
+.loader {
+      position: fixed;
+      /* Covers whole screen */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.95);
+      z-index: 9999;
+      /* Ensures it sits on top of everything */
+
+      /* Centering */
+      display: none;
+      /* Hidden by default */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+}
+
+.pineapple {
+      position: relative;
+      width: 200px;
+      height: 300px;
+      animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+      0%,
+      100% {
+            transform: translateY(0);
+      }
+
+      50% {
+            transform: translateY(-10px);
+      }
+}
+
+/* Crown */
+.crown {
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 100px;
+      z-index: 10;
+}
+
+.leaf {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      width: 14px;
+      height: 70px;
+      transform-origin: bottom center;
+      border-radius: 50% 50% 30% 30% / 70% 70% 30% 30%;
+      overflow: hidden;
+}
+
+.leaf::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--leaf-dark) 0%, var(--leaf-mid) 40%, var(--leaf-light) 60%, var(--leaf-mid) 100%);
+}
+
+.leaf--center {
+      height: 80px;
+      transform: translateX(-50%);
+      animation: sway 3s ease-in-out infinite;
+}
+
+.leaf--l1 {
+      height: 65px;
+      transform: translateX(-50%) rotate(-15deg);
+      animation: sway 3.2s ease-in-out infinite 0.1s;
+}
+
+.leaf--l2 {
+      height: 50px;
+      transform: translateX(-50%) rotate(-35deg);
+      animation: sway 3.4s ease-in-out infinite 0.2s;
+}
+
+.leaf--l3 {
+      height: 35px;
+      transform: translateX(-50%) rotate(-55deg);
+      animation: sway 3.6s ease-in-out infinite 0.3s;
+}
+
+.leaf--r1 {
+      height: 65px;
+      transform: translateX(-50%) rotate(15deg);
+      animation: sway 3.1s ease-in-out infinite 0.15s;
+}
+
+.leaf--r2 {
+      height: 50px;
+      transform: translateX(-50%) rotate(35deg);
+      animation: sway 3.3s ease-in-out infinite 0.25s;
+}
+
+.leaf--r3 {
+      height: 35px;
+      transform: translateX(-50%) rotate(55deg);
+      animation: sway 3.5s ease-in-out infinite 0.35s;
+}
+
+@keyframes sway {
+
+      0%,
+      100% {
+            transform: translateX(-50%) rotate(var(--r, 0deg));
+      }
+
+      50% {
+            transform: translateX(-50%) rotate(calc(var(--r, 0deg) + 5deg));
+      }
+}
+
+.leaf--center {
+      --r: 0deg;
+}
+
+.leaf--l1 {
+      --r: -15deg;
+}
+
+.leaf--l2 {
+      --r: -35deg;
+}
+
+.leaf--l3 {
+      --r: -55deg;
+}
+
+.leaf--r1 {
+      --r: 15deg;
+}
+
+.leaf--r2 {
+      --r: 35deg;
+}
+
+.leaf--r3 {
+      --r: 55deg;
+}
+
+/* Body */
+.body {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 210px;
+      border-radius: 45% 45% 48% 48%;
+      overflow: hidden;
+      box-shadow:
+            inset -15px -20px 40px rgba(0, 0, 0, 0.3),
+            inset 10px 10px 30px rgba(255, 255, 255, 0.1);
+      z-index: 1;
+}
+
+.body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--pineapple-body) 0%, var(--pineapple-dark) 80%, var(--pineapple-shadow) 100%);
+}
+
+.body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+            repeating-linear-gradient(45deg, transparent 0px, transparent 9px, var(--peel-line) 9px, var(--peel-line) 10px),
+            repeating-linear-gradient(-45deg, transparent 0px, transparent 9px, var(--peel-line) 9px, var(--peel-line) 10px);
+      opacity: 0.5;
+}
+
+/* Face */
+.face {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 60px;
+      z-index: 20;
+}
+
+.eye {
+      position: absolute;
+      top: 5px;
+      width: 20px;
+      height: 24px;
+      background: #1c1917;
+      border-radius: 50%;
+      animation: blink 4s ease-in-out infinite;
+}
+
+.eye::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 7px;
+      height: 7px;
+      background: #fff;
+      border-radius: 50%;
+}
+
+.eye--left {
+      left: 10px;
+}
+
+.eye--right {
+      right: 10px;
+}
+
+@keyframes blink {
+
+      0%,
+      95%,
+      100% {
+            transform: scaleY(1);
+      }
+
+      97% {
+            transform: scaleY(0.1);
+      }
+}
+
+.mouth {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 15px;
+      border: 3px solid #1c1917;
+      border-top: none;
+      border-radius: 0 0 20px 20px;
+      background: transparent;
+}
+
+.cheek {
+      position: absolute;
+      top: 22px;
+      width: 16px;
+      height: 9px;
+      background: rgba(181, 92, 58, 0.4);
+      border-radius: 50%;
+}
+
+.cheek--left {
+      left: 0;
+}
+
+.cheek--right {
+      right: 0;
+}
+
+/* Arms */
+.arm {
+      position: absolute;
+      top: 190px;
+      width: 45px;
+      height: 16px;
+      background: linear-gradient(180deg, var(--pineapple-body) 0%, var(--pineapple-dark) 100%);
+      border-radius: 20px;
+      z-index: 15;
+}
+
+.arm--left {
+      left: 10px;
+      transform: rotate(20deg);
+      animation: armHold 2.5s ease-in-out infinite;
+}
+
+.arm--right {
+      right: 10px;
+      transform: rotate(-20deg);
+      animation: armHold 2.5s ease-in-out infinite reverse;
+}
+
+@keyframes armHold {
+
+      0%,
+      100% {
+            transform: rotate(var(--rot));
+      }
+
+      50% {
+            transform: rotate(calc(var(--rot) + 3deg));
+      }
+}
+
+.arm--left {
+      --rot: 20deg;
+}
+
+.arm--right {
+      --rot: -20deg;
+}
+
+.hand {
+      position: absolute;
+      width: 20px;
+      height: 18px;
+      background: var(--pineapple-dark);
+      border-radius: 50%;
+      top: -1px;
+}
+
+.arm--left .hand {
+      left: -5px;
+}
+
+.arm--right .hand {
+      right: -5px;
+}
+
+/* Cup */
+.teacup {
+      position: absolute;
+      top: 185px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 18;
+      animation: sip 3s ease-in-out infinite;
+}
+
+@keyframes sip {
+
+      0%,
+      100% {
+            transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+            transform: translateX(-50%) translateY(-5px);
+      }
+}
+
+.cup-body {
+      position: relative;
+      width: 65px;
+      height: 50px;
+      background: linear-gradient(180deg, var(--cup-cream) 0%, var(--cup-shadow) 100%);
+      border-radius: 5px 5px 30px 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), inset 3px 3px 8px rgba(255, 255, 255, 0.4);
+}
+
+.cup-body::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      height: 16px;
+      background: linear-gradient(180deg, var(--tea-surface) 0%, var(--tea) 100%);
+      border-radius: 3px 3px 10px 10px;
+}
+
+.handle {
+      position: absolute;
+      right: -14px;
+      top: 8px;
+      width: 18px;
+      height: 28px;
+      border: 5px solid var(--cup-cream);
+      border-left: none;
+      border-radius: 0 15px 15px 0;
+}
+
+/* Steam */
+.steam {
+      position: absolute;
+      bottom: 45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 20px;
+      background: var(--steam);
+      border-radius: 50%;
+      filter: blur(3px);
+      opacity: 0;
+      animation: rise 2s ease-out infinite;
+}
+
+.steam:nth-child(2) {
+      left: calc(50% - 12px);
+      animation-delay: 0.6s;
+}
+
+.steam:nth-child(3) {
+      left: calc(50% + 12px);
+      animation-delay: 1.2s;
+}
+
+@keyframes rise {
+      0% {
+            opacity: 0;
+            transform: translateY(0) translateX(-50%) scale(0.8);
+      }
+
+      50% {
+            opacity: 0.6;
+      }
+
+      100% {
+            opacity: 0;
+            transform: translateY(-30px) translateX(-50%) scale(1.2);
+      }
+}
+
+/* Legs */
+.legs {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 40px;
+      z-index: 2;
+}
+
+.leg {
+      width: 24px;
+      height: 25px;
+      background: var(--pineapple-shadow);
+      border-radius: 8px 8px 12px 12px;
+      animation: step 1s ease-in-out infinite;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.leg:nth-child(2) {
+      animation-delay: 0.5s;
+}
+
+@keyframes step {
+
+      0%,
+      100% {
+            height: 25px;
+      }
+
+      50% {
+            height: 30px;
+      }
+}
+
+/* Shadow */
+.shadow {
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 20px;
+      background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+      animation: shadowPulse 3s ease-in-out infinite;
+}
+
+@keyframes shadowPulse {
+
+      0%,
+      100% {
+            transform: translateX(-50%) scale(1);
+            opacity: 0.6;
+      }
+
+      50% {
+            transform: translateX(-50%) scale(0.9);
+            opacity: 0.3;
+      }
+}
+
+/* Loading Dots */
+.dots {
+      display: flex;
+      gap: 10px;
+      margin-top: 1rem;
+}
+
+.dot {
+      width: 12px;
+      height: 12px;
+      background: var(--pineapple-body);
+      border-radius: 50%;
+      animation: pulse 1.4s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+      animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+      animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+
+      0%,
+      100% {
+            transform: scale(0.6);
+            opacity: 0.4;
+      }
+
+      50% {
+            transform: scale(1);
+            opacity: 1;
+      }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+      .pineapple,
+      .leaf,
+      .arm,
+      .teacup,
+      .leg,
+      .steam,
+      .dot,
+      .shadow {
+            animation: none;
+      }
+
+      .steam {
+            opacity: 0.3;
+            transform: translateY(-15px) translateX(-50%);
+      }
+}

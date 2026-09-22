@@ -1,0 +1,424 @@
+/* Import necessary fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+/* === RESET & BASE === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+a { text-decoration: none; }
+li { list-style: none; }
+html { overflow-x: hidden; }
+
+:root {
+    /* Permissions Page Specific Colors */
+    --primary: #4361ee;
+    --primary-dark: #3a56d4;
+    --success: #10b981;
+    --danger: #ef4444;
+    --danger-dark: #dc2626;
+    --bg-light: #f8fafc;
+    --card-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    --border-radius: 16px;
+
+    /* Layout Dependencies (Required for Sidebar/Nav structure) */
+    --light: #ffffff;
+    --grey: #f8fafc;
+    --green: #2E7D32;
+    --dark: #1e293b;       /* Sidebar Text Color */
+    --light-blue: #8FBC8F; /* Sidebar Hover */
+    --lato: 'Lato', sans-serif;
+}
+
+body { font-family: 'Inter', sans-serif; background-color: var(--bg-light); color: #334155; overflow-x: hidden; }
+
+/* --- SIDEBAR STYLES --- */
+#sidebar {
+    position: fixed; top: 0; left: 0; width: 220px; height: 100%;
+    background: var(--light); z-index: 2000; font-family: var(--lato);
+    transition: .3s ease; overflow-x: hidden; scrollbar-width: none;
+}
+#sidebar::-webkit-scrollbar { display: none; }
+#sidebar.hide { width: 60px; }
+#sidebar .brand {
+    font-size: 20px; font-weight: 700; height: 56px; display: flex;
+    align-items: center; color: var(--dark); position: sticky;
+    top: 0; left: 0; background: var(--light); z-index: 500;
+    padding-bottom: 20px; margin-top: 20px; margin-left: 5px;
+    box-sizing: content-box;
+}
+#sidebar .brand .bx { min-width: 60px; display: flex; justify-content: center; }
+#sidebar .side-menu { width: 100%; margin-top: 48px; }
+#sidebar .side-menu li {
+    height: 48px; background: transparent; margin-left: 6px;
+    border-radius: 48px 0 0 48px; padding: 4px;
+}
+#sidebar .side-menu li.active { background: var(--grey); position: relative; }
+#sidebar .side-menu li.active::before {
+    content: ''; position: absolute; width: 40px; height: 40px;
+    border-radius: 50%; top: -40px; right: 0;
+    box-shadow: 20px 20px 0 var(--grey); z-index: -1;
+}
+#sidebar .side-menu li.active::after {
+    content: ''; position: absolute; width: 40px; height: 40px;
+    border-radius: 50%; bottom: -40px; right: 0;
+    box-shadow: 20px -20px 0 var(--grey); z-index: -1;
+}
+#sidebar .side-menu li a {
+    width: 100%; height: 100%; background: var(--light);
+    display: flex; align-items: center; border-radius: 48px;
+    font-size: 16px; color: var(--dark); white-space: nowrap; overflow-x: hidden;
+}
+#sidebar .side-menu.top li.active a { color: var(--dark); font-weight: 600;}
+#sidebar.hide .side-menu li a { width: calc(48px - (4px * 2)); transition: width .3s ease; }
+#sidebar .side-menu li a.logout { color: var(--red); }
+#sidebar .side-menu.top li a:hover { color: var(--dark); }
+#sidebar .side-menu li a .bx {
+    min-width: calc(60px - ((4px + 6px) * 2)); display: flex; justify-content: center;
+}
+
+/* --- CONTENT & NAVBAR STYLES --- */
+#content { position: relative; width: calc(100% - 220px); left: 220px; transition: .3s ease; }
+#sidebar.hide ~ #content { width: calc(100% - 60px); left: 60px; }
+#content nav {
+    height: 56px; background: var(--light); padding: 0 24px;
+    display: flex; align-items: center; grid-gap: 24px;
+    font-family: var(--lato); position: sticky; top: 0; left: 0; z-index: 1000;
+}
+#content nav::before {
+    content: ''; position: absolute; width: 40px; height: 40px;
+    bottom: -40px; left: 0; border-radius: 50%;
+    box-shadow: -20px -20px 0 var(--light);
+}
+#content nav a { color: var(--dark); }
+#content nav .bx.bx-menu { cursor: pointer; color: var(--dark); }
+#content nav form { max-width: 400px; width: 100%; margin-right: auto; }
+#content nav form .form-input { display: flex; align-items: center; height: 36px; }
+
+#content nav .profile img { width: 36px; height: 36px; object-fit: cover; border-radius: 50%; }
+#content nav .profile-menu {
+    display: none; position: absolute; top: 56px; right: 0;
+    background: var(--light); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px; width: 200px; z-index: 9999;
+}
+#content nav .profile-menu ul { list-style: none; padding: 10px; margin: 0; }
+#content nav .profile-menu li { padding: 10px; border-bottom: 1px solid var(--grey); cursor: pointer; }
+#content nav .profile-menu li:hover { background-color: var(--light-blue); color: var(--dark); }
+#content nav .profile-menu.show { display: block; }
+
+/* --- MAIN CONTENT --- */
+#content main {
+    width: 100%; padding: 36px 24px; font-family: 'Inter', sans-serif;
+    max-height: calc(100vh - 56px); overflow-y: auto;
+}
+
+/* Modern Card Styling */
+.page-header { margin-bottom: 30px; }
+.page-header h1 { font-size: 1.8rem; font-weight: 700; color: var(--dark); margin: 0; }
+.page-header p { color: #64748b; margin-top: 5px; }
+
+.card {
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #f1f5f9;
+}
+
+/* Side-by-Side Grid for Add/Edit/Delete - Now 3 Columns */
+.action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    align-items: flex-start; /* ENSURES ALL CARDS HAVE SAME HEIGHT */
+}
+
+/* Section Borders */
+/* === UNIFIED CARD STYLE === */
+.card {
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #f1f5f9;
+}
+
+/* === VERTICAL DIVIDER FOR COLUMNS (Full Height) === */
+/* Force grid items to stretch to full height so borders work */
+.action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0px; /* Set gap to 0, we will use padding for spacing */
+    align-items: stretch; 
+}
+
+/* Reset padding for columns so border is clean */
+.add-tab-section,
+.edit-tab-section,
+.delete-tab-section {
+    padding: 0 24px;
+    border-right: 1px solid #e2e8f0; /* The Divider */
+    height: 100%; /* Full height */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Remove border from last column */
+.delete-tab-section {
+    border-right: none;
+}
+
+/* Fix content spacing inside columns */
+.add-tab-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1; /* Fills remaining space */
+}
+
+.action-grid h4 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.action-grid h4 i {
+    font-size: 1.2rem;
+    color: #64748b;
+}
+
+/* Responsive fix for single column */
+@media screen and (max-width: 1100px) {
+    .action-grid { gap: 0; }
+    .add-tab-section, .edit-tab-section { 
+        border-right: none; 
+        border-bottom: 1px solid #e2e8f0; /* Horizontal divider on mobile */
+        padding-bottom: 24px;
+        margin-bottom: 24px;
+    }
+}
+
+/* FORM FIX: Allow height to fill card and push buttons to bottom */
+.add-tab-form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+}
+
+.form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: #475569; }
+.form-input { width: 100%; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; transition: all 0.2s; background: #fff; }
+.form-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1); }
+
+/* Icon Picker Input Group */
+.icon-picker-group { position: relative; cursor: pointer; }
+.icon-preview-box { 
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%); 
+    width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; 
+    color: var(--primary); pointer-events: none; font-size: 1.2rem;
+}
+
+/* Role Selector */
+.role-selector-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.role-select-modern { 
+    padding: 12px 20px; border-radius: 10px; border: 2px solid #e2e8f0; 
+    font-weight: 600; min-width: 250px; cursor: pointer; background: #fff;
+}
+.role-select-modern:focus { border-color: var(--primary); outline: none; }
+
+/* === ROLE MANAGEMENT TOOLBAR === */
+.role-management-toolbar {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.toolbar-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toolbar-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toolbar-label i {
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.input-action-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-action-group .form-input {
+    flex: 1;
+    padding: 10px 15px; /* Slightly smaller than default for toolbar */
+}
+
+.btn-toolbar {
+    background: var(--dark);
+    color: white;
+    border: none;
+    padding: 0 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.btn-toolbar:hover {
+    background: #1b5e20; /* Darker green */
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 60px;
+    background: #e2e8f0;
+    flex-shrink: 0;
+}
+
+/* Permissions Grid */
+.permissions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+
+.perm-card {
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* FIX: Prevent text overlap */
+.perm-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    min-width: 0; flex: 1; overflow: hidden;
+}
+
+.perm-icon-box {
+    width: 48px; height: 48px; border-radius: 12px; background: #eff6ff;
+    display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.perm-details { min-width: 0; overflow: hidden; }
+.perm-details h4 { margin: 0 0 4px 0; font-size: 1rem; color: var(--dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.perm-details p { margin: 0; font-size: 0.8rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Toggle Switch Styles */
+.toggle-container { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; min-width: 100px; }
+.toggle-row { display: flex; align-items: center; gap: 10px; }
+
+.switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #cbd5e1; transition: .3s; border-radius: 24px;
+}
+.slider:before {
+    position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+    background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+input:checked + .slider { background-color: var(--primary); }
+input:checked + .slider:before { transform: translateX(20px); }
+
+.toggle-label { font-size: 0.8rem; font-weight: 500; color: #64748b; width: 30px; }
+
+/* Active State Indicator */
+.perm-card.has-view .perm-icon-box { background: #ecfdf5; color: var(--success); }
+.perm-card.has-edit .perm-icon-box { background: #fff1f2; color: var(--danger); }
+
+/* Button Styles */
+.btn-primary {
+    background: var(--primary); 
+    color: white; 
+    border: none;
+    padding: 12px 24px; 
+    border-radius: 10px; 
+    font-weight: 600;
+    cursor: pointer; 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 8px; 
+    transition: background 0.2s;
+    
+    align-self: flex-end; /* Keeps button aligned to the right */
+    margin-top: 15px; /* Consistent space above button */
+}
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-primary:disabled {
+    background-color: #94a3b8 !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.btn-edit-action { background: var(--success); }
+.btn-edit-action:hover { background: #059669; }
+
+.btn-delete-action { background: var(--danger); }
+.btn-delete-action:hover { background: var(--danger-dark); }
+
+/* Modal Styles */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content { background: #fff; padding: 40px; border-radius: 20px; text-align: center; width: 90%; max-width: 400px; transform: scale(0.9); transition: transform 0.3s; }
+.modal-overlay.active .modal-content { transform: scale(1); }
+.modal-icon { width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+
+.modal-icon.success { background: #ecfdf5; color: var(--success); }
+.modal-icon.danger { background: #fef2f2; color: var(--danger); }
+
+/* Icon Picker Modal */
+.icon-picker-modal { max-width: 600px; }
+.icon-search { margin-bottom: 15px; }
+.icon-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; max-height: 300px; overflow-y: auto; padding-right: 5px; }
+.icon-item { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border: 1px solid #f1f5f9; border-radius: 8px; cursor: pointer; font-size: 1.5rem; color: #64748b; background: #fff; }
+.icon-item.selected { background: var(--primary); color: white; border-color: var(--primary); }
+
+/* Navbar Fix for Z-Index */
+#content nav { z-index: 1001; }
+
+/* Responsive */
+@media screen and (max-width: 1100px) {
+    .action-grid { grid-template-columns: 1fr 1fr; }
+}
+@media screen and (max-width: 768px) {
+    #sidebar { left: -220px; z-index: 2001; }
+    #sidebar.show { left: 0; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
+    #sidebar.hide ~ #content, #content { width: 100%; left: 0; }
+    #content nav::before { display: none; }
+    
+    .action-grid { grid-template-columns: 1fr; }
+    .role-management-toolbar {
+        flex-direction: column;
+        gap: 25px;
+        align-items: stretch;
+    }
+    .toolbar-divider {
+        width: 100%;
+        height: 1px;
+    }
+    .input-action-group {
+        flex-direction: column;
+    }
+    .btn-toolbar {
+        padding: 12px;
+    }
+}

@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a { text-decoration: none; }
+li { list-style: none; }
+
+:root {
+    /* Permissions Page Theme Colors */
+    --primary: #4361ee;
+    --primary-dark: #3a56d4;
+    --success: #10b981;
+    --danger: #ef4444;
+    --danger-dark: #dc2626;
+    --bg-light: #f8fafc;
+    --card-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    --border-radius: 16px;
+
+    /* Layout Dependencies */
+    --light: #ffffff;
+    --grey: #f8fafc;
+    --green: #2E7D32;
+    --dark: #1e293b;       /* Sidebar Text Color */
+    --light-blue: #8FBC8F; /* Sidebar Hover */
+    --lato: 'Lato', sans-serif;
+    
+    /* Text Colors */
+    --text-main: #334155;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+}
+
+html { overflow-x: hidden; }
+body { background: var(--grey); overflow-x: hidden; font-family: 'Inter', sans-serif; }
+
+/* --- SIDEBAR --- */
+#sidebar {
+    position: fixed; top: 0; left: 0; width: 220px; height: 100%;
+    background: var(--light); z-index: 2000; font-family: var(--lato);
+    transition: .3s ease; overflow-x: hidden; scrollbar-width: none;
+}
+#sidebar::-webkit-scrollbar { display: none; }
+#sidebar.hide { width: 60px; }
+#sidebar .brand {
+    font-size: 20px; font-weight: 700; height: 56px; display: flex;
+    align-items: center; color: var(--dark); position: sticky;
+    top: 0; left: 0; background: var(--light); z-index: 500;
+    padding-bottom: 20px; margin-top: 20px; margin-left: 5px;
+    box-sizing: content-box;
+}
+#sidebar .brand .bx { min-width: 60px; display: flex; justify-content: center; }
+#sidebar .side-menu { width: 100%; margin-top: 48px; }
+#sidebar .side-menu li {
+    height: 48px; background: transparent; margin-left: 6px;
+    border-radius: 48px 0 0 48px; padding: 4px;
+}
+#sidebar .side-menu li.active { background: var(--grey); position: relative; }
+#sidebar .side-menu li.active::before {
+    content: ''; position: absolute; width: 40px; height: 40px;
+    border-radius: 50%; top: -40px; right: 0;
+    box-shadow: 20px 20px 0 var(--grey); z-index: -1;
+}
+#sidebar .side-menu li.active::after {
+    content: ''; position: absolute; width: 40px; height: 40px;
+    border-radius: 50%; bottom: -40px; right: 0;
+    box-shadow: 20px -20px 0 var(--grey); z-index: -1;
+}
+#sidebar .side-menu li a {
+    width: 100%; height: 100%; background: var(--light);
+    display: flex; align-items: center; border-radius: 48px;
+    font-size: 16px; color: var(--dark); white-space: nowrap; overflow-x: hidden;
+}
+#sidebar .side-menu.top li.active a { color: var(--dark); font-weight: 600;}
+#sidebar.hide .side-menu li a { width: calc(48px - (4px * 2)); transition: width .3s ease; }
+#sidebar .side-menu.top li a:hover { color: var(--dark); }
+#sidebar .side-menu li a .bx {
+    min-width: calc(60px - ((4px + 6px) * 2)); display: flex; justify-content: center;
+}
+
+/* --- CONTENT & NAVBAR --- */
+#content { position: relative; width: calc(100% - 220px); left: 220px; transition: .3s ease; }
+#sidebar.hide ~ #content { width: calc(100% - 60px); left: 60px; }
+#content nav {
+    height: 56px; background: var(--light); padding: 0 24px;
+    display: flex; align-items: center; grid-gap: 24px;
+    font-family: var(--lato); position: sticky; top: 0; left: 0; z-index: 1000;
+}
+#content nav::before {
+    content: ''; position: absolute; width: 40px; height: 40px;
+    bottom: -40px; left: 0; border-radius: 50%;
+    box-shadow: -20px -20px 0 var(--light);
+}
+#content nav a { color: var(--dark); }
+#content nav .bx.bx-menu { cursor: pointer; color: var(--dark); }
+#content nav form { max-width: 400px; width: 100%; margin-right: auto; }
+#content nav form .form-input { display: flex; align-items: center; height: 36px; }
+
+#content nav .profile img { width: 36px; height: 36px; object-fit: cover; border-radius: 50%; }
+#content nav .profile-menu {
+    display: none; position: absolute; top: 56px; right: 0;
+    background: var(--light); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px; width: 200px; z-index: 9999;
+}
+#content nav .profile-menu ul { list-style: none; padding: 10px; margin: 0; }
+#content nav .profile-menu li { padding: 10px; border-bottom: 1px solid var(--grey); cursor: pointer; }
+#content nav .profile-menu li:hover { background-color: var(--light-blue); color: var(--dark); }
+#content nav .profile-menu.show { display: block; }
+
+/* --- MAIN CONTENT --- */
+#content main {
+    width: 100%; padding: 36px 24px; font-family: 'Inter', sans-serif;
+    max-height: calc(100vh - 56px); overflow-y: auto;
+}
+#content main .head-title {
+    display: flex; align-items: center; justify-content: space-between;
+    grid-gap: 16px; flex-wrap: wrap;
+}
+#content main .head-title .left h1 { font-weight: 700 !important; color: var(--text-dark); font-size: 1.8rem; }
+#content main .head-title .btn-download {
+    height: 42px; padding: 0 24px; border-radius: 10px;
+    background: var(--primary); color: var(--light); display: flex;
+    justify-content: center; align-items: center; grid-gap: 10px;
+    font-weight: 600; cursor: pointer; transition: background 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(67, 97, 238, 0.2);
+}
+#content main .head-title .btn-download:hover { background: var(--primary-dark); }
+
+/* --- TABLE DATA (Specific to Users Page) --- */
+#content main .table-data {
+    display: flex; flex-wrap: wrap; grid-gap: 24px; margin-top: 24px;
+    width: 100%; color: var(--text-main);
+}
+#content main .table-data > div {
+    border-radius: var(--border-radius); background: var(--light); padding: 24px; overflow-x: auto;
+    box-shadow: var(--card-shadow); border: 1px solid #f1f5f9;
+}
+#content main .table-data .head { display: flex; align-items: center; grid-gap: 16px; margin-bottom: 24px; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px; }
+#content main .table-data .head h3 { margin-right: auto; font-size: 1.1rem; font-weight: 600; color: var(--text-dark); }
+#content main .table-data .order { flex-grow: 1; flex-basis: 500px; width: 100%; }
+#content main .table-data .order table { width: 100%; border-collapse: collapse; }
+#content main .table-data .order table th { padding: 12px 16px; font-size: 0.8rem; text-align: left; border-bottom: 2px solid #f1f5f9; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+/* Changed padding from '16px 0' to '12px 16px' so separated columns have breathing room */
+#content main .table-data .order table td { 
+    padding: 12px 16px; 
+    border-bottom: 1px solid #f1f5f9; 
+    vertical-align: middle; 
+}
+
+/* DELETED THE td:first-child DISPLAY FLEX RULE HERE - This was breaking the table */
+
+#content main .table-data .order table td img { 
+    width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: #e2e8f0; 
+}
+
+/* Optional: keeps long emails from breaking the table layout */
+#content main .table-data .order table td .status-email { 
+    word-break: break-all; 
+}
+
+#content main .table-data .order table tbody tr:hover { background: #f8fafc; }
+
+/* Buttons inside table */
+.btn { padding: 6px 12px; font-size: 0.85rem; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; margin-right: 5px; }
+.btn-edit { background-color: #ecfdf5; color: var(--success); }
+.btn-edit:hover { background-color: #d1fae5; }
+.btn-delete { background-color: #fef2f2; color: var(--danger); }
+.btn-delete:hover { background-color: #fee2e2; }
+
+/* --- MODALS --- */
+.modal, #editUserModal, .delmodal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
+.modal-content, .editModal-content, .delmodal-content { background-color: #fff; padding: 0; border-radius: 20px; width: 550px; max-width: 95%; box-shadow: var(--card-shadow); overflow: hidden; border: 1px solid #f1f5f9; }
+
+.modal-header, .edit-header { background-color: var(--dark); color: white; padding: 20px 25px; display: flex; align-items: center; gap: 15px; border-bottom: none; }
+.modal-header h2, .edit-header h2 { margin: 0; font-size: 1.2rem; font-family: 'Inter', sans-serif; font-weight: 600; }
+.modal-header i, .edit-header i { font-size: 1.5rem; color: var(--primary); }
+
+/* Forms inside Modals */
+#addUserForm, #editUserForm { padding: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+#addUserForm .full-width, #editUserForm .full-width { grid-column: span 2; }
+#addUserForm label, #editUserForm label { display: block; margin-bottom: 8px; font-weight: 600; color: #475569; font-size: 0.85rem; text-transform: none; }
+#addUserForm input, #editUserForm input, #addUserForm select, #editUserForm select { width: 100%; padding: 12px 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; transition: all 0.2s; box-sizing: border-box; font-family: 'Inter', sans-serif; background: #fff; }
+#addUserForm input:focus, #editUserForm input:focus, #addUserForm select:focus, #editUserForm select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1); outline: none; }
+
+/* Modal Buttons */
+.modal-footer, .edit-footer { grid-column: span 2; display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #f1f5f9; background: transparent; }
+.btn-save, .editbtn-save { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+.btn-save:hover, .editbtn-save:hover { background: var(--primary-dark); }
+.editbtn-cancel { background: #fff; color: var(--text-muted); border: 2px solid #e2e8f0; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+.editbtn-cancel:hover { background: #f8fafc; border-color: #cbd5e1; }
+.close-btn, .editClose-btn { color: rgba(255,255,255,0.6); margin-left: auto; font-size: 24px; cursor: pointer; background: transparent; border: none; transition: color 0.2s; }
+.close-btn:hover, .editClose-btn:hover { color: white; }
+
+/* Delete Modal Specific */
+.delmodal-content { width: 400px; text-align: center; padding: 40px !important; border-top: none; }
+.del-icon { font-size: 2rem; color: var(--danger); margin-bottom: 20px; width: 60px; height: 60px; background: #fef2f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: auto; margin-right: auto; }
+.delmodal-content p { color: var(--text-dark); font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; }
+.del-subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; display: block; }
+.delmodal-buttons { display: flex; justify-content: center; gap: 15px; }
+.delbtn-base { padding: 10px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+.delbtn-confirm { background-color: var(--danger); color: white; }
+.delbtn-confirm:hover { background-color: var(--danger-dark); }
+.delbtn-cancel { background-color: #f1f5f9; color: var(--text-muted); border: none; }
+.delbtn-cancel:hover { background-color: #e2e8f0; }
+
+@keyframes modalPop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* Password Toggle */
+.password-wrapper { position: relative; width: 100%; }
+.toggle-icon { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #94a3b8; }
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    #sidebar { left: -220px; z-index: 2001; }
+    #sidebar.show { left: 0; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
+    #sidebar.hide ~ #content, #content { width: 100%; left: 0; }
+    #content nav::before { display: none; }
+    
+    #addUserForm, #editUserForm { grid-template-columns: 1fr; }
+    #addUserForm .full-width, #editUserForm .full-width { grid-column: span 1; }
+}

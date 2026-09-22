@@ -1,0 +1,604 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ==========================================
+   1. RESET & ROOT VARIABLES
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a { text-decoration: none; }
+li { list-style: none; }
+
+:root {
+    --poppins: 'Poppins', sans-serif;
+    --lato: 'Lato', sans-serif;
+    --light: #ffffff;
+    --blue: #006400;
+    --light-blue: #e6f4ea;
+    --sky-blue: #e0f2fe;
+    --grey: #f8fafc;
+    --dark-grey: #64748b;
+    --dark: #2E7D32;
+    --red: #A52A2A;
+    --yellow: #FFEB3B;
+    --light-yellow: #FFF9C4;
+    --orange: #ecc48f;
+    --light-orange: #FFE0B2;
+    
+    --card-bg: #ffffff;
+    --card-border: #f1f5f9;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --radius-lg: 16px;
+    --card-shadow: 0 10px 40px rgba(0,0,0,0.05);
+}
+
+html { overflow-x: hidden; }
+
+body { background: var(--grey); overflow-x: hidden; font-family: var(--poppins); }
+
+/* ==========================================
+   ANIMATIONS KEYFRAMES
+   ========================================== */
+@keyframes fadeInSlideLeft {
+    from { opacity: 0; transform: translateX(30px); } 
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Shared animation for alert and todos icons */
+@keyframes lookAround { 
+    0%, 100% { transform: rotate(0deg); } 
+    25% { transform: rotate(5deg); } 
+    75% { transform: rotate(-5deg); } 
+}
+
+
+
+/* NAVBAR */
+#content nav {
+    height: 56px; background: var(--light); padding: 0 24px;
+    display: flex; align-items: center; grid-gap: 24px;
+    font-family: var(--lato); position: sticky; top: 0; left: 0; z-index: 1000;
+}
+
+#content nav::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    bottom: -40px;
+    left: 0;
+    border-radius: 50%;
+    box-shadow: -20px -20px 0 var(--light);
+}
+
+#content nav a { color: var(--dark); }
+#content nav .bx.bx-menu { cursor: pointer; color: var(--dark); }
+#content nav .nav-link { font-size: 16px; transition: .3s ease; }
+#content nav .nav-link:hover { color: var(--dark); }
+#content nav form { max-width: 400px; width: 100%; margin-right: auto; }
+#content nav form .form-input { display: flex; align-items: center; height: 36px; }
+
+#content nav form .form-input input {
+    flex-grow: 1; padding: 0 16px; height: 100%; border: none;
+    background: var(--grey); border-radius: 36px 0 0 36px;
+    outline: none; width: 100%; color: var(--dark);
+}
+
+#content nav form .form-input button {
+    width: 36px; height: 100%; display: flex;
+    justify-content: center; align-items: center;
+    background: var(--dark); color: var(--light); font-size: 18px;
+    border: none; outline: none; border-radius: 0 36px 36px 0; cursor: pointer;
+}
+
+/* ==========================================
+   4. MAIN CONTENT & HEAD TITLE
+   ========================================== */
+#content main { width: 100%; padding: 24px 24px; font-family: var(--poppins); max-height: calc(100vh - 56px); overflow-y: auto; }
+
+#content main .head-title { display: flex; align-items: center; justify-content: space-between; grid-gap: 16px; flex-wrap: wrap; }
+#content main .head-title .left h1 { font-weight: 800; color: var(--dark); }
+#content main .head-title .left .breadcrumb { display: flex; align-items: center; grid-gap: 16px; }
+#content main .head-title .left .breadcrumb li { color: var(--dark); }
+#content main .head-title .left .breadcrumb li a { color: var(--dark-grey); pointer-events: none; }
+#content main .head-title .left .breadcrumb li a.active { color: var(--blue); pointer-events: unset; }
+#content main .head-title .btn-download { height: 36px; padding: 0 16px; border-radius: 36px; background: var(--dark); color: var(--light); display: flex; justify-content: center; align-items: center; grid-gap: 10px; font-weight: 500; box-shadow: var(--shadow-md); }
+
+/* ==========================================
+   5. DASHBOARD DATA & GRID LAYOUT
+   ========================================== */
+.dashboard-data { border-radius: 20px; margin-top: 20px; }
+.dashboard-records { display: grid; grid-template-columns: 4fr 1fr; grid-gap: 25px; }
+.records-left { padding: 0px; box-sizing: border-box; }
+
+/* Right Column */
+.records-right {
+    background-color: none !important; padding: 0px; box-sizing: border-box;
+    border-radius: var(--radius-lg); display: flex; flex-direction: column; gap: 15px;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transform: translateZ(0);
+}
+
+.alert-section, .todos-section {
+    background-color: transparent;
+    padding: 15px;
+    border-radius: 18px;
+    box-shadow: var(--shadow-md);
+    /* FIX: Reserve border space so dark mode doesn't shift layout */
+    border: 1px solid transparent; 
+}
+
+/* ==========================================
+   6. CARDS ROW (Top Stats) - ANIMATED
+   ========================================== */
+.section-title-cards {
+    font-size: 0.9rem !important; font-weight: 700; color: #64748b; 
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; margin-top: 0px; 
+}
+
+.count-cards-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); grid-gap: 25px; margin-bottom: 18px; }
+
+.count-cards-row li {
+    padding: 20px; padding-bottom: 15px; border-radius: var(--radius-lg);
+    display: flex; align-items: center; grid-gap: 25px;
+    background: var(--card-bg); position: relative; overflow: hidden; z-index: 1;
+    box-shadow: var(--shadow-md);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    opacity: 0;
+    animation: fadeInSlideLeft 0.6s ease-out forwards;
+}
+
+.count-cards-row li:nth-child(1) { animation-delay: 0.1s; }
+.count-cards-row li:nth-child(2) { animation-delay: 0.2s; }
+.count-cards-row li:nth-child(3) { animation-delay: 0.3s; }
+.count-cards-row li:nth-child(4) { animation-delay: 0.4s; }
+
+.count-cards-row li:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.count-cards-row li::before { display: none; }
+
+.count-cards-row li .bx { width: 60px; height: 60px; border-radius: 15px; font-size: 36px; display: flex; justify-content: center; align-items: center; }
+
+.count-cards-row li:nth-child(1) .bx { 
+    background: linear-gradient(135deg, #2E7D32, #1B5E20); 
+    color: #E8F5E9; 
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.4); 
+}
+.count-cards-row li:nth-child(2) .bx { 
+    background: linear-gradient(135deg, #0288D1, #01579B); 
+    color: #E1F5FE; 
+    box-shadow: 0 4px 10px rgba(2, 136, 209, 0.4); 
+}
+.count-cards-row li:nth-child(3) .bx { 
+    background: linear-gradient(135deg, #F57C00, #E65100); 
+    color: #FFF3E0; 
+    box-shadow: 0 4px 10px rgba(245, 124, 0, 0.4); 
+}
+.count-cards-row li:nth-child(4) .bx { background: #fee2e2; color: #dc2626; }
+
+.dcards-content { display: flex; align-items: start; line-height: 24px; text-decoration: none; color: inherit; }
+.dcards-content .text { margin-left: 10px !important; }
+.dcards-content .text h3 { font-size: 28px; font-weight: 800; margin: 0; color: #1e293b; }
+.dcards-content .text p { color: var(--dark-grey); font-size: 15px; font-weight: 500; margin: 0; padding: 0px; margin-bottom: 2px !important; }
+.plus-count { color: #10b981; font-weight: 600; font-size: 11px; background: #ecfdf5; padding: 2px 6px; margin-bottom: 5px; border-radius: 4px; }
+
+.section-title-s16-and-c74 {
+    font-size: 0.9rem !important; font-weight: 700; color: #64748b; 
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; margin-top: 25px; 
+}
+
+/* ==========================================
+   7. CHARTS ROW (Pie & Line) - ANIMATED
+   ========================================== */
+.charts-row { display: grid; grid-template-columns: 8fr 5fr; grid-gap: 25px; background-color: transparent; }
+
+.section-title-charts-and-graphs {
+    font-size: 0.9rem !important; font-weight: 700; color: #64748b; 
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; margin-top: 25px;
+}
+
+.piechart-card-title { width: 100%; text-align: center; font-size: 16px; font-weight: 600; color: #334155; margin-top: 0; margin-bottom: 15px; -webkit-font-smoothing: antialiased; }
+
+.myChart {
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    padding: 20px; background: var(--card-bg); border-radius: var(--radius-lg);
+    height: 570px; box-shadow: var(--card-shadow); box-sizing: border-box;
+    border: 1px solid var(--card-border);
+    
+    opacity: 0;
+    animation: fadeInSlideUp 0.6s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+.piechart-content-wrapper { display: flex; flex-direction: row; align-items: center; justify-content: center; flex-grow: 1; width: 100%; gap: 20px; }
+
+#myPieChart { width: 450px !important; height: auto !important; flex-shrink: 0; }
+
+.legend-container { position: relative; display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px 10px; width: auto; max-width: 270px; justify-items: start; }
+.legend-item { display: flex; align-items: center; font-size: 12px; color: #475569; }
+.legend-color-box { width: 12px; height: 12px; margin-right: 6px; border-radius: 2px; }
+
+/* Line Charts - ANIMATED */
+#content main .table-data .line-charts { flex: 0 1 600px; width: 600px; max-width: 100%; height: 880px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease; background: transparent; padding: 0px; margin: 0px; transform: translateZ(0); }
+
+
+.linechart_for_expiry, .linechart_for_contracts {
+    position: relative; background: var(--card-bg); height: 276px;
+    padding: 0px 15px; border-radius: var(--radius-lg); box-shadow: var(--card-shadow);
+    margin-bottom: 18px; border: 1px solid var(--card-border);
+    
+    opacity: 0;
+    animation: fadeInSlideUp 0.6s ease-out forwards;
+}
+.linechart_for_expiry { animation-delay: 0.3s; }
+.linechart_for_contracts { animation-delay: 0.4s; }
+
+.linechart_for_expiry canvas, .linechart_for_contracts canvas { width: 100% !important; height: 100% !important; }
+
+/* ==========================================
+   8. BAR GRAPHS ROW - ANIMATED
+   ========================================== */
+.bargraphs-row { display: grid; grid-template-columns: 1fr 1fr; grid-gap: 25px; margin-bottom: 18px; background-color: transparent; }
+
+.bargraph {
+    background: var(--card-bg); height: 276px; padding: 15px;
+    border-radius: var(--radius-lg); box-shadow: var(--card-shadow); border: 1px solid var(--card-border);
+    
+    opacity: 0;
+    animation: fadeInSlideLeft 0.6s ease-out forwards;
+}
+.bargraph:nth-child(1) { animation-delay: 0.5s; }
+.bargraph:nth-child(2) { animation-delay: 0.6s; }
+
+.bargraph canvas { width: 100% !important; height: 100% !important; }
+
+/* ==========================================
+   9. LANDOWNERS TRENDS SECTION
+   ========================================== */
+.section-title-trends {
+    font-size: 0.9rem !important; font-weight: 700; color: #64748b; 
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; margin-top: 25px;
+}
+   
+.landowners-trends-row {
+    margin-top: 0px; background: var(--card-bg); border-radius: var(--radius-lg);
+    padding: 20px; box-shadow: var(--card-shadow); border: 1px solid var(--card-border);
+    -webkit-font-smoothing: antialiased; overflow: hidden;
+}
+
+.trends-header { display: flex; align-items: center; gap: 10px; position: relative; padding-bottom: 15px; margin-bottom: 10px; border-bottom: 1px solid var(--card-border); }
+.trends-header i { color: var(--dark); }
+.trends-header h3 { margin: 0; font-size: 16px; color: #334155; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.trends-grid-4-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+
+.trend-column-card {
+    background: #f8fafc; border-radius: 12px; padding: 0px;
+    display: flex; flex-direction: column; transition: transform 0.2s ease;
+    border: 1px solid var(--card-border); overflow: hidden;
+}
+
+.trend-card-header { display: flex; padding: 15px; flex-direction: row !important; align-items: center; margin-bottom: 0px; gap: 10px; background: #ffffff; border-bottom: 1px solid var(--card-border); }
+
+.trend-icon-box { width: 35px; height: 35px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 18px; color: #fff; flex-shrink: 0; }
+.trend-category-title { font-size: 13px; font-weight: 700; color: #334155; line-height: 1.2; }
+
+.trend-icon-box.blue { background: #3b82f6; }
+.trend-icon-box.green { background: #2E7D32; }
+.trend-icon-box.orange { background: #f59e0b; }
+.trend-icon-box.red { background: #ef4444; }
+
+.trend-list { display: flex; flex-direction: column; gap: 0px; }
+.trend-item { display: flex; gap: 8px; align-items: flex-start; padding: 7px 15px; border-radius: 4px; }
+.trend-item:nth-child(odd) { background-color: rgba(255, 255, 255, 0.5); }
+.trend-item:nth-child(even) { background-color: rgba(0, 0, 0, 0.01); }
+
+.trend-rank { font-size: 12px; font-weight: 700; color: #94a3b8; min-width: 15px; padding-top: 2px; }
+.trend-info { flex: 1; overflow: hidden; }
+.trend-name { font-size: 13px; font-weight: 600; color: #334155; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.trend-meta { display: flex; flex-direction: column; gap: 0px; }
+.trend-stat { font-size: 12px; color: var(--dark); font-weight: 600; }
+.trend-since { font-size: 10px; color: #94a3b8; font-style: italic; }
+
+/* ==========================================
+   10. RIGHT PANEL: TODO HEADER ONLY
+   ========================================== */
+.todos-header {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe); border-radius: 10px;
+    padding: 10px; display: flex; align-items: center; gap: 12px;
+    box-shadow: var(--shadow-sm); color: #1e40af; margin-bottom: 15px;
+}
+
+.todos-icon {
+    font-size: 28px; background: rgba(255, 255, 255, 0.6); width: 45px; height: 45px;
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    animation: lookAround 3s infinite;
+}
+
+.todos-text h4 { margin: 0; font-size: 16px; font-weight: 700; font-family: var(--poppins); }
+.todos-text p { margin: 0; font-size: 12px; opacity: 0.8; font-family: var(--lato); }
+
+/* ==========================================
+   13. RIGHT PANEL: TODOS
+   ========================================== */
+.records-right-todos { background-color: transparent; padding: 0; margin: 0; list-style: none; }
+
+/* ==========================================
+   14. TABLE DATA & GENERIC TODO LIST
+   ========================================== */
+#content main .table-data { display: flex; flex-wrap: wrap; grid-gap: 24px; margin-top: 24px; width: 100%; color: var(--dark); justify-content: center; }
+#content main .table-data > div { border-radius: 20px; background: var(--light); padding: 5px 20px; border: 1px solid var(--card-border); box-shadow: var(--shadow-md); }
+
+#content main .table-data .head { display: flex; align-items: center; grid-gap: 16px; margin-bottom: 24px; }
+#content main .table-data .head h3 { margin-right: auto; font-size: 24px; font-weight: 600; }
+#content main .table-data .head .bx { cursor: pointer; }
+
+.records { width: 100%; height: fit-content; }
+
+#content main .table-data .todo { flex-grow: 1; flex-basis: 50px; }
+#content main .table-data .todo .todo-list { width: 100%; }
+
+#content main .table-data .todo .todo-list li { width: 100%; margin-bottom: 16px; background: var(--grey); border-radius: 10px; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; }
+#content main .table-data .todo .todo-list li .bx { cursor: pointer; }
+#content main .table-data .todo .todo-list li.completed { border-left: 10px solid var(--blue); }
+#content main .table-data .todo .todo-list li.not-completed { border-left: 10px solid var(--orange); }
+#content main .table-data .todo .todo-list li:last-child { margin-bottom: 0; }
+
+/* Generic Menu Styles */
+#content main .menu, #content nav .menu { display: none; list-style-type: none; padding-left: 20px; margin-top: 5px; position: absolute; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; width: 200px; }
+#content main .menu a, #content nav .menu a { color: #fff; text-decoration: none; display: block; padding: 8px 16px; }
+#content main .menu a:hover, #content nav .menu a:hover { background-color: #444; }
+#content main .menu-link, #content nav .menu-link { margin: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; text-decoration: none; color: #007bff; }
+#content main .menu-link:hover, #content nav .menu-link:hover { text-decoration: underline; }
+
+/* ==========================================
+   15. MODALS
+   ========================================== */
+/* Modal styles would go here if defined in CSS */
+
+/* ==========================================
+   16. RESPONSIVE STYLES
+   ========================================== */
+@media screen and (max-width: 1440px) {
+    .count-cards-row { grid-template-columns: repeat(3, 1fr) !important; grid-gap: 10px; }
+    .count-cards-row li { padding: 12px; }
+    .count-cards-row li .bx { flex-shrink: 0; width: auto; height: auto; padding: 8px; font-size: 22px; border-radius: 8px; }
+    #content main .count-cards-row li .text h3 { font-size: 18px; }
+    #content main .count-cards-row li .text p { font-size: 12px; margin-top: -4px; line-height: 1rem; }
+
+    #content main .table-data .line-charts { width: 100%; flex: 1; min-width: 0; }
+    .charts-row { grid-template-columns: 1fr 1fr; }
+
+    .myChart {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        height: 570px;
+        gap: 15px;
+        overflow: hidden;
+    }
+
+    #myPieChart {
+        width: 100% !important;
+        max-width: 320px;
+        max-height: 55%;
+        margin-bottom: 0;
+    }
+
+    .piechart-content-wrapper {
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        justify-content: space-between;
+    }
+
+    .legend-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 15px;
+        width: 100%;
+        max-width: 100%;
+        overflow-y: auto;
+        padding: 0 5px;
+        max-height: 40%;
+    }
+
+    .legend-item {
+        font-size: 11px;
+        width: auto;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #sidebar { left: -220px; z-index: 2001; box-shadow: none; }
+    #sidebar.show { left: 0; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
+    #sidebar.hide ~ #content, #content { width: 100%; left: 0; }
+    #content nav { padding: 0 16px; }
+    #content nav .nav-link { display: none; }
+    #content nav form { position: absolute; left: 50px; right: 100px; max-width: none; width: auto; z-index: 1; }
+    .dashboard-records { grid-template-columns: 1fr; }
+    .charts-row { grid-template-columns: 1fr; }
+    #content main .table-data .line-charts { width: 100%; flex: none; }
+    
+    #content main .count-cards-row { grid-template-columns: 1fr !important; }
+    #content main .records-right-cards { grid-template-columns: 1fr; }
+    #content main .count-cards-row li .text p { font-size: 12px; margin-top: -2px; line-height: 1rem; }
+    
+    #content nav .notification-menu, #content nav .profile-menu { position: fixed; top: 60px; right: 10px; width: calc(100% - 20px); max-width: 300px; }
+    .trends-grid-4-col { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ==========================================
+   16. RESPONSIVE STYLES (FIXED FOR MOBILE)
+   ========================================== */
+@media screen and (max-width: 576px) {
+    
+    /* 1. SIDEBAR: Fixed Position & High Z-Index */
+    #sidebar {
+        position: fixed !important; /* Takes sidebar out of flow, fixes empty space */
+        top: 0 !important;
+        left: -300px !important;   /* Hidden by default */
+        width: 280px !important;   /* Standard mobile width */
+        height: 100% !important;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+        z-index: 9999 !important;  /* HIGHEST: Must be above overlay */
+        transition: left 0.3s ease-in-out;
+    }
+
+    /* 2. SIDEBAR: Show when active */
+    #sidebar.show {
+        left: 0 !important;
+    }
+
+    /* 3. CONTENT: Force Full Width */
+    #content {
+        width: 100% !important; /* Fixes the "Old Area Remaining" issue */
+        left: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    /* 4. OVERLAY: Dark background when menu is open */
+    /* Target body to ensure it covers everything */
+    body.nav-open::before {
+        content: '';
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6);
+        z-index: 9998; /* Below Sidebar (9999), Above Content */
+        pointer-events: auto; /* Allows clicking this to close menu */
+    }
+
+    /* 5. PRESERVED: Existing Mobile Nav/Search Styles */
+    #content nav form .form-input input { display: none; }
+    #content nav form .form-input button { width: 36px; height: 36px; background: var(--grey); border-radius: 50%; color: var(--dark); }
+    #content nav form.show { position: fixed; top: 10px; left: 10px; right: 10px; width: calc(100% - 20px); z-index: 1001; background: var(--light); padding: 10px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    #content nav form.show .form-input input { display: block; width: 100%; background: var(--grey); }
+    #content nav form.show .form-input button { border-radius: 0 36px 36px 0; background: var(--dark); color: var(--light); }
+    #content nav form.show ~ .notification, #content nav form.show ~ .profile { display: none; }
+    
+    #content main { padding: 24px 16px; }
+    #content main .head-title { flex-direction: column; align-items: flex-start; gap: 10px; }
+    #content main .head-title .btn-download { width: 100%; justify-content: center; }
+    #content main .table-data { overflow-x: auto; }
+    #content main .head-title .left h1 { font-size: 24px; }
+    #content main .records-right-cards li .text h3, #content main .count-cards-row li .text h3 { font-size: 24px; }
+    .myChart { flex-direction: column; height: auto; padding: 20px 10px; }
+    #myPieChart { width: 100% !important; max-width: 300px; }
+    .legend-container { justify-items: center; grid-template-columns: repeat(2, 1fr); margin-top: 20px; }
+    .trends-grid-4-col { grid-template-columns: 1fr; }
+}
+
+/* ==========================================
+   17. CHAMPION "FOREST NIGHT" DARK MODE
+   ========================================== */
+
+/* 1. Variables Override */
+body.dark {
+    --light: #0b1a12;
+    --grey: #061208;
+    --blue: #2ecc71;
+    --light-blue: #0a1f12;
+    
+    --dark: #e8f5e9;
+    --dark-grey: #a9c7ac;
+    
+    --card-bg: #0a1f12;
+    --card-border: rgba(46, 204, 113, 0.15);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* 3. Cards & Containers */
+body.dark .count-cards-row li,
+body.dark .myChart,
+body.dark .linechart_for_expiry,
+body.dark .linechart_for_contracts,
+body.dark .bargraph,
+body.dark .landowners-trends-row,
+body.dark .records-right {
+    border-color: var(--card-border) !important;
+}
+
+body.dark .todos-section {
+    box-shadow: var(--shadow-md);
+    border-color: 1px solid var(--card-border);
+    padding: 15px;
+    border-radius: 18px;
+    background: var(--card-bg);
+}
+
+body.dark .trend-column-card { background: rgba(0,0,0,0.2); border-color: var(--card-border); }
+body.dark .trend-card-header { background: rgba(0,0,0,0.3); border-color: var(--card-border); }
+body.dark .trend-item:nth-child(odd) { background-color: rgba(255, 255, 255, 0.02); }
+body.dark .trend-item:nth-child(even) { background-color: rgba(0, 0, 0, 0.1); }
+
+/* 4. Text Colors */
+body.dark .dcards-content .text h3,
+body.dark .piechart-card-title,
+body.dark .trends-header h3,
+body.dark .trend-category-title,
+body.dark .trend-name {
+    color: var(--dark) !important;
+}
+
+body.dark .section-title-cards,
+body.dark .section-title-charts-and-graphs,
+body.dark .section-title-trends,
+body.dark .section-title-s16-and-c74,
+body.dark .trend-rank {
+    color: var(--dark-grey) !important;
+}
+
+/* 5. Plus Count Badge Fix */
+body.dark .plus-count {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+}
+
+/* 6. Todos Header Dark Mode */
+body.dark .todos-header {
+    background: linear-gradient(135deg, rgba(219, 234, 254, 0.1), rgba(191, 219, 254, 0.05));
+    color: #63b3ed;
+    border: 1px solid rgba(99, 179, 237, 0.2);
+}
+body.dark .todos-icon { background: rgba(0,0,0,0.3); }
+
+/* 7. Navbar Dark */
+body.dark #content nav { border-bottom: 1px solid var(--card-border); }
+body.dark #content nav .profile-menu,
+body.dark #content nav .notification-menu {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+}
+body.dark #content nav .profile-menu li,
+body.dark #content nav .notification-menu li {
+    color: var(--dark);
+    border-bottom-color: var(--card-border);
+}
+body.dark #content nav .profile-menu li:hover,
+body.dark #content nav .notification-menu li:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--light);
+}
+
+/* 8. Scrollbars Dark */
+body.dark::-webkit-scrollbar { width: 8px; }
+body.dark::-webkit-scrollbar-track { background: var(--grey); }
+body.dark::-webkit-scrollbar-thumb { background: #1d4e2e; border-radius: 10px; }
+
+/* 9. Chart Legend Text Dark */
+body.dark .legend-item { color: var(--dark-grey) !important; } 
